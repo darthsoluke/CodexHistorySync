@@ -1,0 +1,7 @@
+codex-history-sync
+codex-history-sync.exe
+CodexHistorySync
+CodexHistorySync.exe
+*.test
+*.out
+bin/
