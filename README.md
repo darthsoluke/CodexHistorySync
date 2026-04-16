@@ -4,16 +4,16 @@
 
 It is implemented as a single Go binary, so runtime use does not require Python, conda, or a separate SQLite installation.
 
-Install:
+Install from release:
 
 ```bash
-./install.sh
+curl -fsSL https://raw.githubusercontent.com/darthsoluke/CodexHistorySync/main/install.sh | bash
 ```
 
-Build:
+Windows PowerShell:
 
 ```bash
-go build -o "$HOME/.local/bin/codex-history-sync"
+irm https://raw.githubusercontent.com/darthsoluke/CodexHistorySync/main/install.ps1 | iex
 ```
 
 Run:
@@ -30,4 +30,6 @@ git tag v0.1.0
 git push origin v0.1.0
 ```
 
-Pushing a `v*` tag triggers the GitHub Actions release workflow and publishes binaries under GitHub Releases.
+Pushing a `v*` tag triggers the GitHub Actions release workflow and publishes prebuilt binaries under GitHub Releases.
+
+To pin a version, set `CODEX_HISTORY_SYNC_VERSION=v0.1.0` before running the installer.
