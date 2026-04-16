@@ -22,3 +22,12 @@ Run:
 codex-history-sync --help
 codex-history-sync --apply
 ```
+
+Release:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+Pushing a `v*` tag triggers the GitHub Actions release workflow and publishes binaries under GitHub Releases.
