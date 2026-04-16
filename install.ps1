@@ -14,7 +14,7 @@ switch ($arch.ToLower()) {
   'x86_64' { $archName = 'amd64' }
   'arm64' { $archName = 'arm64' }
   default {
-    throw "Unsupported architecture: $arch"
+    throw "Unsupported architecture / 不支持的架构: $arch"
   }
 }
 
@@ -29,7 +29,7 @@ New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
 $targetPath = Join-Path $InstallDir 'codex-history-sync.exe'
 
 Invoke-WebRequest -Uri $downloadUrl -OutFile $targetPath
-Write-Host "Installed: $targetPath"
+Write-Host "Installed / 已安装: $targetPath"
 Write-Host ""
-Write-Host "Try:"
+Write-Host "Try / 试试:"
 Write-Host "  codex-history-sync --help"

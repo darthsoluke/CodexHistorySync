@@ -14,7 +14,7 @@ case "$os_name" in
   Darwin) platform="darwin" ;;
   MINGW*|MSYS*|CYGWIN*) platform="windows" ;;
   *)
-    echo "codex-history-sync: unsupported OS: $os_name" >&2
+    echo "codex-history-sync: unsupported OS / 不支持的操作系统: $os_name" >&2
     exit 1
     ;;
 esac
@@ -23,7 +23,7 @@ case "$arch_name" in
   x86_64|amd64) arch="amd64" ;;
   aarch64|arm64) arch="arm64" ;;
   *)
-    echo "codex-history-sync: unsupported architecture: $arch_name" >&2
+    echo "codex-history-sync: unsupported architecture / 不支持的架构: $arch_name" >&2
     exit 1
     ;;
 esac
@@ -48,7 +48,7 @@ if command -v curl >/dev/null 2>&1; then
 elif command -v wget >/dev/null 2>&1; then
   wget -qO "$tmp_file" "$download_url"
 else
-  echo "codex-history-sync: need curl or wget to download releases" >&2
+  echo "codex-history-sync: need curl or wget to download releases / 需要 curl 或 wget 才能下载发布包" >&2
   exit 1
 fi
 
@@ -60,7 +60,7 @@ fi
 mv "$tmp_file" "$target_path"
 chmod +x "$target_path"
 
-echo "Installed: $target_path"
+echo "Installed / 已安装: $target_path"
 echo
-echo "Try:"
+echo "Try / 试试:"
 echo "  codex-history-sync --help"
