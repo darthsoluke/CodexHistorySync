@@ -11,31 +11,29 @@ permissions:
 jobs:
   build:
     name: Build ${{ matrix.goos }}-${{ matrix.goarch }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-latest
-            goos: linux
+          - goos: linux
             goarch: amd64
-            binary_name: CodexHistorySync_linux_amd64
-          - os: ubuntu-latest
-            goos: linux
+            binary_name: codex-history-sync_linux_amd64
+          - goos: linux
             goarch: arm64
-            binary_name: CodexHistorySync_linux_arm64
-          - os: macos-latest
-            goos: darwin
+            binary_name: codex-history-sync_linux_arm64
+          - goos: darwin
             goarch: amd64
-            binary_name: CodexHistorySync_darwin_amd64
-          - os: macos-latest
-            goos: darwin
+            binary_name: codex-history-sync_darwin_amd64
+          - goos: darwin
             goarch: arm64
-            binary_name: CodexHistorySync_darwin_arm64
-          - os: windows-latest
-            goos: windows
+            binary_name: codex-history-sync_darwin_arm64
+          - goos: windows
             goarch: amd64
-            binary_name: CodexHistorySync_windows_amd64.exe
+            binary_name: codex-history-sync_windows_amd64.exe
+          - goos: windows
+            goarch: arm64
+            binary_name: codex-history-sync_windows_arm64.exe
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -72,16 +70,23 @@ jobs:
         with:
           path: dist
 
+      - name: Flatten assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release
+          find dist -type f -name 'codex-history-sync*' -exec cp {} release/ \;
+
       - name: Generate checksums
         shell: bash
         run: |
           set -euo pipefail
-          cd dist
-          find . -type f | sort | xargs sha256sum > SHA256SUMS
+          cd release
+          find . -maxdepth 1 -type f -name 'codex-history-sync*' | sort | xargs sha256sum > SHA256SUMS
 
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
           files: |
-            dist/**/*
+            release/*
